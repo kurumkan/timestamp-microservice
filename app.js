@@ -4,7 +4,7 @@ var moment = require('moment');
 
 //dates with these formats could be parsed correctly
 var formats = ["MMMM DD YYYY", "MMMM YYYY DD", "YYYY DD MMMM", "YYYY MMMM DD", "DD YYYY MMMM", "DD MMMM YYYY",
-					"MM-DD-YYYY", "YYYY-MM-DD","MM DD YYYY", "YYYY MM DD"];
+			   "YYYY M DD", "YYYY DD M", "M DD YYYY", "M YYYY DD", "DD YYYY M", "DD M YYYY"];
 
 //app config
 app.set("view engine", "ejs");
@@ -21,11 +21,11 @@ app.get("/:date", function(request, response){
 
 	if(!isNaN(dateParam)){
 		//dateParam was a number
-		date = moment.unix(dateParam).utc();
+		date = moment.unix(dateParam).utc();		
 	}else{				
-		date = moment.utc(dateParam, formats);						
-	}
-
+		date = moment.utc(dateParam, formats);								
+	}	
+	
 	if(date.isValid()){
 		//passed data was correct
 		response.json({unix: +date.format("X"), natural: date.format("MMMM D, YYYY")});	
